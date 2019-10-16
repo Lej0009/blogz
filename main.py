@@ -23,17 +23,16 @@ class Blog(db.Model):
 @app.route('/', methods=['POST', 'GET'])
 def index():
 
-    form_value = request.args.get('id')
+    blog_id = str(request.args.get('id'))
     blogs = Blog.query.all()
 
 
-    if not form_value:
+    if not blog_id:
         return render_template('blogs.html',title="Build-A-Blog!", blogs=blogs)
     else:
-        for blog in blogs:
-            return '<h1>' + blog.name + '</h1><br><br><p>' + blog.body + '</p>'
-
-
+        myblog = Blog.query.get(blog_id)
+        return render_template('blogs.html', blogs=blogs, myblog=myblog)
+  
 
 @app.route('/newblog', methods=['POST', 'GET'])
 def new_blog():

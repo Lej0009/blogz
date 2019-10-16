@@ -4,19 +4,14 @@
 
 <h1 style="text-align: center;">Build-A-Blog!</h1>
 
-<!-- <hr /> {% if blogs|length == 0 %}
-<p>No blog posts yet</p>
-{% else %} {% endif %} -->
-
-<hr />
 
 <h2>Blog Posts</h2>
 
 <hr /> {% if blogs|length == 0 %}
 <p>No blog posts yet</p>
 {% else %} {% endif %}
-
 <ul style="list-style: none;">
+
     {% for blog in blogs %}
     <li><strong><a href='./?id={{blog.id}}'>{{blog.name}}</a></strong>
 
