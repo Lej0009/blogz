@@ -25,13 +25,9 @@ def index():
 
     blog_id = str(request.args.get('id'))
     blogs = Blog.query.all()
+    myblog = Blog.query.get(blog_id)
 
-
-    if not blog_id:
-        return render_template('blogs.html',title="Build-A-Blog!", blogs=blogs)
-    else:
-        myblog = Blog.query.get(blog_id)
-        return render_template('blogs.html', blogs=blogs, myblog=myblog)
+    return render_template('blogs.html', blogs=blogs, myblog=myblog)
   
 
 @app.route('/newblog', methods=['POST', 'GET'])

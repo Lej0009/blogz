@@ -4,7 +4,7 @@
 
 <h1 style="text-align: center;">Build-A-Blog!</h1>
 
-
+{% if not myblog %}
 <h2>Blog Posts</h2>
 
 <hr /> {% if blogs|length == 0 %}
@@ -13,11 +13,13 @@
 <ul style="list-style: none;">
 
     {% for blog in blogs %}
+
     <li><strong><a href='./?id={{blog.id}}'>{{blog.name}}</a></strong>
 
         <br>{{blog.body}}
     </li>
     <hr /> {% endfor %}
-</ul>
-
-{% endblock %}
+</ul>{% endif %} {% if myblog %}
+<h3>{{myblog.name}}</h3>
+<p>{{myblog.body}}</p>
+{% endif %} {% endblock %}
