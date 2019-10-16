@@ -13,35 +13,23 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
     body = db.Column(db.String(800))
-    completed = db.Column(db.Boolean)
+
 
 
     def __init__(self, blog, blogbody):
         self.name=blog
-        self.blogbody=blogbody
-        self.completed=False
-
+        self.body=blogbody
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
 
  
-    blogs = Blog.query.filter_by(completed=False).all()
-    completed_blogs = Blog.query.filter_by(completed=True).all()
+    blogs = Blog.query.all()
+    
     return render_template('blogs.html',title="Build-A-Blog!", 
-        completed_blogs=completed_blogs)
+        blogs=blogs)
 
 
-# @app.route('/delete-blog', methods=['POST'])
-# def delete_blog():
-
-#     blog_id = int(request.form['blog-id'])
-#     blog = Blog.query.get(blog_id)
-#     blog.completed = True
-#     db.session.add(blog)
-#     db.session.commit()
-
-#     return redirect('/')
 
 @app.route('/newblog', methods=['POST', 'GET'])
 def new_blog():

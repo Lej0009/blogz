@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <a href='/' style='margin-right: 10px;'>Main Blog Page</a>
-<a href='/newblog'>Create New Blog Post</a><br><br>
+<a href='/newblog'>Create New Entry</a><br><br>
 
 <h1 style="text-align: center;">Build-A-Blog!</h1>
 
@@ -16,10 +16,13 @@
 <p>No blog posts yet</p>
 {% else %} {% endif %}
 
-<ul>
-    {% for blog in completed_blogs %}
-    <li>{{blog.name}}</li>
-    {% endfor %}
+<ul style="list-style: none;">
+    {% for blog in blogs %}
+    <li><strong><a href='./blog?id={{blog.id}}'>{{blog.name}}</a></strong>
+
+        <br>{{blog.body}}
+    </li>
+    <hr /> {% endfor %}
 </ul>
 
 {% endblock %}
