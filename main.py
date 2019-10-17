@@ -56,12 +56,10 @@ def new_blog():
 
         if title_error(blog_title):
             title_error_msg = "Please input a title."
-            blog_title = '' 
-            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg)
-        elif body_error(blog_body):
+            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg, blog_body=blog_body)
+        if body_error(blog_body):
             body_error_msg = "Please input blog content."
-            blog_body = ''
-            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg)
+            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg, blog_title=blog_title)
                    
         else:
             new_blog = Blog(blog_title, blog_body)
