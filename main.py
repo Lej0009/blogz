@@ -52,8 +52,7 @@ def new_blog():
         blog_body = request.form['blogbody']
         title_error_msg = ''
         body_error_msg = ''
-        #if  title_error and body_error:
-           
+        
 
         if title_error(blog_title):
             title_error_msg = "Please input a title."
@@ -68,7 +67,7 @@ def new_blog():
             new_blog = Blog(blog_title, blog_body)
             db.session.add(new_blog)
             db.session.commit()  
-            return redirect('/') 
+            return redirect('/?id=' + str(new_blog.id)) 
     else:
             return render_template('newblog.html')  
     
