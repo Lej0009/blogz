@@ -10,9 +10,11 @@
             New Blog Entry:
             <br><br><input type="text" name='blog' placeholder="Blog Title"/>
         </label>
+    <span class="error">{{title_error}}</span>
     <label><br><br>
             <textarea rows="20" cols="70" name="blogbody" placeholder="Enter blog content here..."></textarea>
-        </label><br><br>
+        </label>
+    <span class="error">{{body_error}}</span><br><br>
     <input type="submit" value='Add Entry' />
 </form>
 

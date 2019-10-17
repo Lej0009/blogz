@@ -8,6 +8,20 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'y37kGcys&zP3B'
 
+
+def title_error(blog_title):
+    if len(blog_title) > 0:
+        return False
+    else:
+        return True
+
+def body_error(blog_body):
+    if len(blog_body) > 0:
+        return False
+    else:
+        return True
+
+
 class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -35,14 +49,28 @@ def new_blog():
 
     if request.method == 'POST':
         blog_title = request.form['blog']   
-        blog_body = request.form['blogbody']     
-        new_blog = Blog(blog_title, blog_body)
-        db.session.add(new_blog)
-        db.session.commit()
+        blog_body = request.form['blogbody']
 
-        return redirect('/')
+        title_error_msg = ''
+        body_error_msg = ''
+
+        if title_error(blog_title):
+            title_error_msg = "Please input a title."
+            blog_title = '' 
+
+        if body_error(blog_body):
+            body_error_msg = "Please input blog content."
+            blog_body = ''  
+
+        if not title_error and not body_error:
+    
+            return redirect('/')
+        else:
+            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg)
     else:
-        return render_template('newblog.html')
+        return render_template('newblog.html')   
+    
+
 
 if __name__ == '__main__':
     app.run()
