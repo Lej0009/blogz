@@ -46,32 +46,31 @@ def index():
 
 @app.route('/newblog', methods=['POST', 'GET'])
 def new_blog():
-
-    if request.method == 'POST':
+        
+    if request.method == 'POST' :
         blog_title = request.form['blog']   
         blog_body = request.form['blogbody']
+        title_error_msg = ''
+        body_error_msg = ''
+        #if  title_error and body_error:
+           
 
-        if not title_error and not body_error:
+        if title_error(blog_title):
+            title_error_msg = "Please input a title."
+            blog_title = '' 
+            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg)
+        elif body_error(blog_body):
+            body_error_msg = "Please input blog content."
+            blog_body = ''
+            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg)
+                   
+        else:
             new_blog = Blog(blog_title, blog_body)
             db.session.add(new_blog)
             db.session.commit()  
-            return redirect('/')
-        else:
-            title_error_msg = ''
-            body_error_msg = ''
-
-            if title_error(blog_title):
-                title_error_msg = "Please input a title."
-                blog_title = '' 
-
-            if body_error(blog_body):
-                body_error_msg = "Please input blog content."
-                blog_body = ''
-
-            return render_template('newblog.html', title_error=title_error_msg, body_error=body_error_msg)
-    
+            return redirect('/') 
     else:
-        return render_template('newblog.html')  
+            return render_template('newblog.html')  
     
 
 
