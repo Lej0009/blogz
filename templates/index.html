@@ -8,18 +8,18 @@
 <h1 style="text-align: center;">Blogz!</h1>
 
 {% if not myblog %}
-<h2>Blog Posts</h2>
+<h2>Users</h2>
 
-<hr /> {% if blogs|length == 0 %}
-<p>No blog posts yet</p>
+<hr /> {% if users|length == 0 %}
+<p>No users yet</p>
 {% else %} {% endif %}
 <ul style="list-style: none;">
 
-    {% for blog in blogs %}
+    {% for user in users %}
 
-    <li><strong><a href='./?id={{blog.id}}'>{{blog.name}}</a></strong>
+    <li><strong><a href='./?id={{user.id}}'>{{user.email}}</a></strong>
 
-        <br>{{blog.body}}
+
     </li>
     <hr /> {% endfor %}
 </ul>{% endif %} {% if myblog %}

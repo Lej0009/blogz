@@ -46,11 +46,20 @@ class User(db.Model):
         self.email=email
         self.password=password
 
+@app.route('/index', methods=['POST', 'GET'])
+def home():
+
+    users = User.query.all()
+
+
+    return render_template('index.html', users=users)
+
+
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'register']
+    allowed_routes = ['login', 'register', 'index']
     if request.endpoint not in allowed_routes and 'email' not in session:
-        return redirect('/login') 
+        return redirect('/index') 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -61,7 +70,7 @@ def login():
         if user and user.password == password:
             session['email']  =email
             flash("Logged in")
-            return redirect('/')
+            return redirect('/index')
         else:
             flash("User password incorrect or user does not exist", 'error')
 
@@ -82,7 +91,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             session['email'] = email
-            return redirect('/')
+            return redirect('/index')
         else:
             # TODO - user better response messaging
             return '<h1>Duplicate user</h1>'
@@ -92,9 +101,9 @@ def register():
 @app.route('/logout')
 def logout():
     del session['email']
-    return redirect('/')
+    return redirect('/login')
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/blogs', methods=['POST', 'GET'])
 def index():
 
     owner = User.query.filter_by(email=session['email']).first()
