@@ -57,7 +57,7 @@ def home():
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'register', 'index']
+    allowed_routes = ['login', 'register', 'index', 'blogs']
     if request.endpoint not in allowed_routes and 'email' not in session:
         return redirect('/index') 
 
@@ -137,7 +137,7 @@ def new_blog():
             new_blog = Blog(blog_title, blog_body, owner)
             db.session.add(new_blog)
             db.session.commit()  
-            return redirect('/?id=' + str(new_blog.id)) 
+            return redirect('blogs?id=' + str(new_blog.id)) 
     else:
             return render_template('newblog.html')  
     
