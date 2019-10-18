@@ -51,7 +51,6 @@ def home():
 
     users = User.query.all()
 
-
     return render_template('index.html', users=users)
 
 
@@ -106,7 +105,8 @@ def logout():
 @app.route('/blogs', methods=['POST', 'GET'])
 def index():
     
-    owner = User.query.filter_by(email=session['email']).first()
+    user_id = str(request.args.get('user'))
+    owner = Blog.query.filter_by(id=user_id).first()
 
     blog_id = str(request.args.get('id'))
     blogs = Blog.query.filter_by(owner=owner).all()
