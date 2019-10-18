@@ -105,7 +105,7 @@ def logout():
 
 @app.route('/blogs', methods=['POST', 'GET'])
 def index():
-
+    
     owner = User.query.filter_by(email=session['email']).first()
 
     blog_id = str(request.args.get('id'))
