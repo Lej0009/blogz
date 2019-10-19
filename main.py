@@ -9,20 +9,19 @@ db = SQLAlchemy(app)
 app.secret_key = 'y37kGcys&zP3B'
 
 
-def title_error(blog_title):
-    if len(blog_title) > 0:
+def title_error(blog_title):             #if blog title is blank return True
+    if len(blog_title) > 0:              #to render error msg to user
         return False
     else:
         return True
 
-def body_error(blog_body):
-    if len(blog_body) > 0:
+def body_error(blog_body):               #if blog body is blank return True
+    if len(blog_body) > 0:               #to render error msg to user
         return False
     else:
         return True
 
-
-class Blog(db.Model):
+class Blog(db.Model):                   #create Blog object
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
@@ -35,7 +34,7 @@ class Blog(db.Model):
         self.body=blogbody
         self.owner=owner
 
-class User(db.Model):
+class User(db.Model):                   #create User object
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True)
@@ -46,19 +45,23 @@ class User(db.Model):
         self.email=email
         self.password=password
 
-@app.route('/index', methods=['POST', 'GET'])
-def home():
 
+@app.route('/index', methods=['POST', 'GET'])           #this is the main page display
+def index():
     users = User.query.all()
-
     return render_template('index.html', users=users)
 
+@app.route("/")                                         #setup to route '/' to the index page
+def main():
+    return render_template('index.html')
 
-@app.before_request
-def require_login():
+@app.before_request                                     #if not logged in, allow access to login, register,
+def require_login():                                    #index, and blogs pages
+
     allowed_routes = ['login', 'register', 'index', 'blogs']
-    if request.endpoint not in allowed_routes and 'email' not in session:
-        return redirect('/index') 
+
+    if request.endpoint not in allowed_routes and 'email' not in session:  #redirect to index if user not logged in or 
+        return redirect('/index')                                          #on an allowed routes page
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -82,8 +85,6 @@ def register():
         password = request.form['password']
         verify = request.form['verify']
 
-        # TODO - validate user's data
-
         existing_user = User.query.filter_by(email=email).first()
         if not existing_user:
             new_user = User(email, password)
@@ -92,18 +93,17 @@ def register():
             session['email'] = email
             return redirect('/index')
         else:
-            # TODO - user better response messaging
             return '<h1>Duplicate user</h1>'
 
     return render_template('register.html')
 
-@app.route('/logout')
+@app.route('/logout')                        #redirect user to index page if logged out
 def logout():
     del session['email']
-    return redirect('/login')
+    return redirect('/index')
 
-@app.route('/blogs', methods=['POST', 'GET'])
-def index():
+@app.route('/blogs', methods=['POST', 'GET'])         #display blog posts filtered by user_id
+def blogs_display():
     
     user_id = str(request.args.get('user'))
     owner = Blog.query.filter_by(id=user_id).first()
