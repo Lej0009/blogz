@@ -56,9 +56,12 @@ def main():
     return render_template('index.html')
 
 @app.before_request                                     #if not logged in, allow access to login, register,
-def require_login():                                    #index, and blogs pages
+def require_login():  
+    
+    user_id = str(request.args.get('user'))
+    blog_id = str(request.args.get('id'))                                  #index, and blogs pages
 
-    allowed_routes = ['login', 'register', 'index', 'blogs']
+    allowed_routes = ['login', 'register', 'index', 'blogs?id=' + blog_id, 'blogs?user=' + user_id]
 
     if request.endpoint not in allowed_routes and 'email' not in session:  #redirect to index if user not logged in or 
         return redirect('/index')                                          #on an allowed routes page
