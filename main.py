@@ -61,7 +61,8 @@ def require_login():
     user_id = str(request.args.get('user'))
     blog_id = str(request.args.get('id'))                                  #index, and blogs pages
 
-    allowed_routes = ['login', 'register', 'index', 'blogs?id=' + blog_id, 'blogs?user=' + user_id]
+    allowed_routes = ['login', 'register', 'index', 'blogs']
+    #, 'blogs?id=' + blog_id, 'blogs?user=' + user_id              add to allowed routes?
 
     if request.endpoint not in allowed_routes and 'email' not in session:  #redirect to index if user not logged in or 
         return redirect('/index')                                          #on an allowed routes page
