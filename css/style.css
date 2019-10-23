@@ -1,0 +1,11 @@
+html {
+    scroll-behavior: smooth;
+}
+
+#jumbo .jumbotron {
+    position: relative;
+    background-image: url("palm-shadow.jpg");
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+}

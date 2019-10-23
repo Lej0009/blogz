@@ -1,12 +1,12 @@
 {% extends "base.html" %} {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/index">Blogz</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
+    <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
@@ -21,30 +21,28 @@
                 <a class="nav-link" href="/register">Register</a>
             </li>
         </ul>
-
-        <div class="brtn btn-primary my-2 my-sm-0">
+        <div class="brtn btn-dark my-2 my-sm-0">
             <a href='/logout'><button type="button" class="btn btn-primary disabled">Logout</button></a>
         </div>
     </div>
 </nav><br>
 
-<h1 style="text-align: center;">Blogz!</h1>
-
-<div class="col-sm-8">
+<div class='justify-content-center'>
     {% if not myblog %}
-    <h2>Blog Posts</h2><br> {% if blogs|length == 0 %}
-    <p>No blog posts yet</p>
+    <h2 class='text-center'>Published Posts</h2><br> {% if blogs|length == 0 %}
+    <p class='text-center'>No blog posts yet</p>
     {% else %} {% endif %}
     <ul style="list-style: none;">
 
         {% for blog in blogs %}
 
+
         <div class="list-group">
             <a href="blogs?id={{blog.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <h6 class="mb-1">{{blog.name}}</h6>
+                    <h6>{{blog.name}}</h6>
                 </div>
-                <p class="mb-1">{{blog.body}}</p>
+                <p>{{blog.body}}</p>
             </a>
         </div>
 
@@ -55,5 +53,6 @@
     <p>{{myblog.body}}</p>
 
     {% endif %}
+    <!-- </div> -->
 </div>
 {% endblock %}

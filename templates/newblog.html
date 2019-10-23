@@ -1,12 +1,12 @@
 {% extends "base.html" %} {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/index">Blogz</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
+    <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
@@ -21,36 +21,36 @@
                 <a class="nav-link" href="/register">Register</a>
             </li>
         </ul>
-
-        <div class="brtn btn-primary my-2 my-sm-0">
+        <div class="brtn btn-dark my-2 my-sm-0">
             <a href='/logout'><button type="button" class="btn btn-primary disabled">Logout</button></a>
         </div>
     </div>
 </nav><br>
 
-<h1 style='text-align: center;'>Blogz!</h1>
+
 
 <div class="col-sm-6">
+    <h3>New Blog Entry</h3><br>
     <form method='POST'>
 
         <fieldset>
 
-            <legend>New Blog Entry</legend>
+            <!-- <legend>New Blog Entry</legend><br> -->
 
             <div class="form-group">
-                <label for="blog">New Entry Title</label>
+                <label for="blog">Title</label>
                 <input type="text" class="form-control" name="blog" placeholder="Enter blog title">
             </div>
             <span class="badge badge-danger">{{title_error}}</span>
 
 
             <div class="form-group">
-                <label for="blogbody">New Entry Body</label>
+                <label for="blogbody">Body</label>
                 <textarea class="form-control" name="blogbody" rows="8" placeholder="Enter blog content"></textarea>
                 <span class="badge badge-danger">{{body_error}}</span>
-            </div>
+            </div><br>
+            <button type="submit" class="btn btn-dark">Add Entry</button><br><br><br>
 
-            <button type="submit" class="btn btn-primary">Add Entry</button>
         </fieldset>
 
     </form>

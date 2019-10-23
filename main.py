@@ -74,8 +74,10 @@ class User(db.Model):                   #create User object
 @app.route('/index', methods=['POST', 'GET'])           #this is the main page display
 def index():
     users = User.query.all()
+
+    rows = Blog.query.count()
  
-    return render_template('index.html', users=users)
+    return render_template('index.html', users=users)  #remove rows=rows
 
 @app.route("/")                                         #setup to route '/' to the index page
 def main():
