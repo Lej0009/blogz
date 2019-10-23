@@ -31,20 +31,16 @@
 <h1 style="text-align: center;">Blogz!</h1>
 
 <div class="col-sm-6">
-    <h2>Users</h2>
-
-    <hr /> {% if users|length == 0 %}
+    <h2>Users</h2><br> {% if users|length == 0 %}
     <p>No users yet</p>
-    {% else %} {% endif %}
-    <ul style="list-style: none;">
+    {% else %} {% endif %} {% for user in users %}
+    <div class="list-group">
+        <a href="blogs?user={{user.id}}" class="list-group-item list-group-item-action">
+              {{user.email}}
+            </a>
+    </div>
+    {% endfor %}
 
-        {% for user in users %}
 
-        <li><strong><a href='blogs?user={{user.id}}'>{{user.email}}</a></strong>
-
-
-        </li>
-        <hr /> {% endfor %}
-    </ul>
 </div>
 {% endblock %}

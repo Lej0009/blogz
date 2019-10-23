@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+import cgi
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -20,6 +21,31 @@ def body_error(blog_body):               #if blog body is blank return True
         return False
     else:
         return True
+
+def password_error(password):
+    space = False
+    for char in password:
+        if char.isspace() == True:
+            space = True
+    
+    if 2<len(password)<20 and space == False:
+        return False
+    else:
+        return True
+
+def verify_error(verify, password):
+    if verify == password:
+        return False
+    else:
+        return True
+
+def email_error(email):
+    existing_user = User.query.filter_by(email=email).first()
+    if "@" in email and "." in email and " " not in email and not existing_user and 2<len(email)<20 and email.count('@') == 1:
+        return False
+    else:
+        return True
+
 
 class Blog(db.Model):                   #create Blog object
 
@@ -84,22 +110,46 @@ def login():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+
     if request.method == 'POST':
-        email = request.form['email']
         password = request.form['password']
         verify = request.form['verify']
+        email = request.form['email']
+
+        pw_error = ''
+        v_error = ''
+        e_error = ''
+
+        # 'escape' the user's input so that if they typed HTML, it doesn'
+        password_escaped = cgi.escape(password, quote=True)
+        verify_escaped = cgi.escape(verify, quote=True)
+        email_escaped = cgi.escape(email, quote=True)
+
+        if password_error(password):
+            pw_error = "Please specify a password that is between 3 and 20 characters and contains no spaces."
+            password = ''
+
+        if verify_error(verify, password):
+            v_error = "Passwords do not match."
+
+        if email_error(email):
+            e_error = "Please specify a valid email that is not already in use."
+            email = ''
 
         existing_user = User.query.filter_by(email=email).first()
-        if not existing_user:
+
+        if not existing_user and not password_error(password) and not verify_error(verify, password) and not email_error(email):  
             new_user = User(email, password)
             db.session.add(new_user)
             db.session.commit()
             session['email'] = email
             return redirect('/index')
         else:
-            return '<h1>Duplicate user</h1>'
+            return render_template('register.html', password_error=pw_error, verify_password_error=v_error, email=email, email_error=e_error)
 
-    return render_template('register.html')
+    else:
+        return render_template('register.html')
+
 
 @app.route('/logout')                        #redirect user to index page if logged out
 def logout():

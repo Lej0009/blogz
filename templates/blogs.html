@@ -32,20 +32,24 @@
 
 <div class="col-sm-6">
     {% if not myblog %}
-    <h2>Blog Posts</h2>
-
-    <hr /> {% if blogs|length == 0 %}
+    <h2>Blog Posts</h2><br> {% if blogs|length == 0 %}
     <p>No blog posts yet</p>
     {% else %} {% endif %}
     <ul style="list-style: none;">
 
         {% for blog in blogs %}
 
-        <li><strong><a href='blogs?id={{blog.id}}'>{{blog.name}}</a></strong>
+        <div class="list-group">
+            <a href="blogs?id={{blog.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{blog.name}}</h5>
+                </div>
+                <p class="mb-1">{{blog.body}}</p>
+            </a>
+        </div>
 
-            <br>{{blog.body}}
-        </li>
-        <hr /> {% endfor %}
+
+        {% endfor %}
     </ul>{% endif %} {% if myblog %}
     <h2>{{myblog.name}}</h2>
     <p>{{myblog.body}}</p>
