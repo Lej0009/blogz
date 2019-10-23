@@ -29,16 +29,16 @@
 </nav><br>
 
 
-<div class="jumbotron" id="jumbo"><br><br><br>
-    <h1 class="display-3">Blogz</h1><br>
+<div class="jumbotron" id="jumbo"><br><br><br><br>
+    <h1 class="display-3">Blogz</h1><br><br>
     <blockquote class="blockquote text-left">
         <p class="mb-0">Blogging is just writing — writing using a particularly efficient type of publishing technology.</p>
         <footer class="blockquote-footer">Simon Dumenco in <cite title="Source Title">Blog, Blog, Blog</cite></footer>
-    </blockquote>
+    </blockquote><br>
     <!-- <p class="lead">This site empowers anyone to become a blogger, no tech skills needed. We focus on the web development, so you can focus on writing content.</p> -->
-    <hr class="my-4">
+    <hr class="my-4"><br>
     <p>Click the link below to explore content by Blogz contributors.</p><br>
-    <p class="lead">
+    <p class="lead"><br>
         <a class="btn btn-dark btn-lg" href="#users" role="button">Explore</a>
     </p>
 </div>
@@ -47,8 +47,8 @@
 <!-- <h1 style="text-align: center;">Blogz!</h1><br> -->
 
 <div class='justify-content-center'>
-    <div class="text-center" id="users">
-        <h3>Contributors</h3><br> {% if users|length == 0 %}
+    <div class="text-center" id="users"><br><br>
+        <h3>Contributors</h3><br><br> {% if users|length == 0 %}
         <p>No users yet</p>
         {% else %} {% endif %} {% for user in users %}
 
