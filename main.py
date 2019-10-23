@@ -24,8 +24,8 @@ def body_error(blog_body):               #if blog body is blank return True
 class Blog(db.Model):                   #create Blog object
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120))
-    body = db.Column(db.String(800))
+    name = db.Column(db.String(120))                    #blog title
+    body = db.Column(db.String(800))                    #blog body
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
@@ -55,14 +55,14 @@ def index():
 def main():
     return render_template('index.html')
 
-@app.before_request                                     #if not logged in, allow access to login, register,
-def require_login():  
+@app.before_request                                   #if not logged in, allow access to login, register,
+def require_login():                                  #index and blogs pages
     
-    user_id = str(request.args.get('user'))
-    blog_id = str(request.args.get('id'))                                  #index, and blogs pages
+    # user_id = str(request.args.get('user'))
+    # blog_id = str(request.args.get('id'))                                  
 
     allowed_routes = ['login', 'register', 'index', 'blogs']
-    #, 'blogs?id=' + blog_id, 'blogs?user=' + user_id              add to allowed routes?
+    #, 'blogs?id=' + blog.id, 'blogs?user=' + user.id              add to allowed routes?
 
     if request.endpoint not in allowed_routes and 'email' not in session:  #redirect to index if user not logged in or 
         return redirect('/index')                                          #on an allowed routes page

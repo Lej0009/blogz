@@ -1,25 +1,50 @@
 {% extends "base.html" %} {% block content %}
-<a href='/index' style='margin-right: 10px;'>Home</a>
-<!-- <a href='/blogs' style='margin-right: 10px;'>Main Blog Page</a> -->
-<a href='/newblog' style='margin-right: 10px;'>Create New Entry</a>
-<a href='/login' style='margin-right: 10px;'>Login</a>
-<a href='/register'>Register</a><br><br>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/index">Blogz</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/newblog">Create New Entry</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+        </ul>
+
+        <div class="brtn btn-primary my-2 my-sm-0">
+            <a href='/logout'><button type="button" class="btn btn-primary disabled">Logout</button></a>
+        </div>
+    </div>
+</nav><br>
 
 <h1 style="text-align: center;">Blogz!</h1>
 
+<div class="col-sm-6">
+    <h2>Users</h2>
 
-<h2>Users</h2>
+    <hr /> {% if users|length == 0 %}
+    <p>No users yet</p>
+    {% else %} {% endif %}
+    <ul style="list-style: none;">
 
-<hr /> {% if users|length == 0 %}
-<p>No users yet</p>
-{% else %} {% endif %}
-<ul style="list-style: none;">
+        {% for user in users %}
 
-    {% for user in users %}
-
-    <li><strong><a href='blogs?user={{user.id}}'>{{user.email}}</a></strong>
+        <li><strong><a href='blogs?user={{user.id}}'>{{user.email}}</a></strong>
 
 
-    </li>
-    <hr /> {% endfor %}
-</ul> {% endblock %}
+        </li>
+        <hr /> {% endfor %}
+    </ul>
+</div>
+{% endblock %}
