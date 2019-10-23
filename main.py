@@ -46,9 +46,6 @@ def email_error(email):
     else:
         return True
 
-
-
-
 class Blog(db.Model):                   #create Blog object
 
     id = db.Column(db.Integer, primary_key=True)
@@ -77,6 +74,7 @@ class User(db.Model):                   #create User object
 @app.route('/index', methods=['POST', 'GET'])           #this is the main page display
 def index():
     users = User.query.all()
+ 
     return render_template('index.html', users=users)
 
 @app.route("/")                                         #setup to route '/' to the index page
