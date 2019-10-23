@@ -47,6 +47,8 @@ def email_error(email):
         return True
 
 
+
+
 class Blog(db.Model):                   #create Blog object
 
     id = db.Column(db.Integer, primary_key=True)
@@ -99,12 +101,14 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
+
+        login_error = ''
         if user and user.password == password:
             session['email']  =email
-            flash("Logged in")
             return redirect('/index')
         else:
-            flash("User password incorrect or user does not exist", 'error')
+            login_error = "User password incorrect or user does not exist"
+            return render_template('login.html', login_error=login_error)
 
     return render_template('login.html')
 

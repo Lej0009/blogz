@@ -30,14 +30,14 @@
 
 <h1 style="text-align: center;">Blogz!</h1>
 
-<div class="col-sm-6">
+<div class="col-sm-4">
     <h2>Users</h2><br> {% if users|length == 0 %}
     <p>No users yet</p>
     {% else %} {% endif %} {% for user in users %}
     <div class="list-group">
         <a href="blogs?user={{user.id}}" class="list-group-item list-group-item-action">
-              {{user.email}}
-            </a>
+            <h6 class="mb-1">{{user.email}}</h6>
+        </a>
     </div>
     {% endfor %}
 
